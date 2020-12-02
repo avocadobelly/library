@@ -7,13 +7,18 @@ h1 {
   margin: 0.67em 0;
 }
 
+label {
+    padding-right: 20px;
+}
+
 #logo {
     font-family: "Comic Sans MS", comic-sans;
     color: white;
     background-color: magenta;
     display: inline-block;
     width: 125px;
-    border: 5px solid orange;
+    border: 5px solid black;
+    border-radius: 15px;
 }
 
 #logo h1 {
@@ -24,7 +29,7 @@ h1 {
     margin: 10px;
 }
 
-.filter-by {
+.filter-by * {
     display: inline;
 }
 
@@ -42,9 +47,23 @@ h1 {
     border: 2px solid black;
 }
 
+.form-holder {
+    border: 2px solid black;
+    padding: 15px;
+    height: 80vh;
+}
+
+.form-element * {
+    display: inline;
+}
+
+.form-element {
+    margin: 50px;
+}
+
 input[type="submit"] {
     box-shadow: 3px 3px;
-    border-radius: 5px;
+    border-radius: 3px;
 
 input[type="text"] {
     border-radius: 10px;

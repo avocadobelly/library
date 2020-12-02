@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Add Book page</title>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <h1 id="logo">Library</h1>
+        <a href="https://www.google.com">Home</a>
+        <div class="form-holder">
+            <form method="post">
+                <div class="form-element">
+                    <label>Title:</label>
+                    <input type="text" name="title" required>
+                </div>
+                <div class="form-element">
+                    <label>Author:</label>
+                    <input type="text" name="author" required>
+                </div>
+                <div class="form-element">
+                    <label>Year:</label>
+                    <input type="date" name="year" required>
+                </div>
+                <div class="choose-genre, form-element">
+                    <label for="genre">Sort By:</label>
+                    <select id="genre" name="genre" required>
+                        <option value="Crime">Title</option>
+                        <option value="Young Adult">Author</option>
+                        <option value="Classic">Genre</option>
+                        <option value="Comedy">Year</option>
+                        <option value="new">New</option>
+                    </select>
+                    <input type="text" placeholder="other genre" name="genre_text">
+                </div>
+                <input type="submit" value="Add Book">
+            </form>
+        </div>
+    </body>
+</html>
