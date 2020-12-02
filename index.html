@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Library Home Page</title>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <h1 id="logo">Library</h1>
+        <nav>
+            <p>
+                <a href="https://www.google.com">Add New Book</a> |
+                <a href="https://www.google.com">Check Out Books</a>
+            </p>
+        </nav>
+        <div class="form-div">
+            <form class="filter-by">
+                <div class="checked-out-control">
+                    <label for="show-checked-out">Show Checked Out Books</label>
+                    <input type="checkbox" id="show-checked-out">
+                </div>
+                <div class="sort-by-control">
+                    <label for="sort-by-drop-down">Sort By:</label>
+                    <select id="sort-by-drop-down">
+                        <option value="title">Title</option>
+                        <option value="author">Author</option>
+                        <option value="genre">Genre</option>
+                        <option value="year">Year</option>
+                    </select>
+                </div>
+                <div class="submit-control">
+                     <input type="text" placeholder="search">
+                     <input type="submit">
+                </div>
+            </form>
+        </div>
+        <div class="book-holder">
+                <div class="book">
+                    <p>Book</p>
+                    <form>
+                        <input type="checkbox">
+                    </form>
+                </div>
+                <div class="book">
+                    <p>Book</p>
+                    <form>
+                        <input type="checkbox">
+                    </form>
+                </div>
+                <div class="book">
+                    <p>Book</p>
+                    <form>
+                        <input type="checkbox">
+                    </form>
+                </div>
+            </div>
+    </body>
+</html>

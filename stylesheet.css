@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+#logo {
+    font-family: "Comic Sans MS", comic-sans;
+    color: white;
+    background-color: magenta;
+    display: inline-block;
+    width: 125px;
+    border: 5px solid orange;
+}
+
+#logo h1 {
+    padding: 5px;
+}
+
+.form-div {
+    margin: 10px;
+}
+
+.filter-by {
+    display: inline;
+}
+
+.book * {
+    display: inline;
+}
+
+.book {
+    border: 3px solid black;
+    box-shadow: 5px 5px gray;
+    margin: 10px;
+}
+
+.book-holder {
+    border: 2px solid black;
+}
+
+input[type="submit"] {
+    box-shadow: 3px 3px;
+    border-radius: 5px;
+
+input[type="text"] {
+    border-radius: 10px;
+}
