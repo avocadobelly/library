@@ -7,10 +7,6 @@ h1 {
   margin: 0.67em 0;
 }
 
-label {
-    padding-right: 20px;
-}
-
 #logo {
     font-family: "Comic Sans MS", comic-sans;
     color: white;
@@ -53,12 +49,17 @@ label {
     height: 80vh;
 }
 
-.form-element * {
-    display: inline;
+.form-holder form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr;
 }
 
-.form-element {
-    margin: 50px;
+.form-holder label {
+    grid-column: 1 / 2;
+}
+
+.form-holder input {
+    grid-column: 2 / 3;
 }
 
 input[type="submit"] {

@@ -10,19 +10,12 @@
         <a href="https://www.google.com">Home</a>
         <div class="form-holder">
             <form method="post">
-                <div class="form-element">
                     <label>Title:</label>
-                    <input type="text" name="title" required>
-                </div>
-                <div class="form-element">
+                    <input class="title" type="text" name="title" required>
                     <label>Author:</label>
                     <input type="text" name="author" required>
-                </div>
-                <div class="form-element">
                     <label>Year:</label>
                     <input type="date" name="year" required>
-                </div>
-                <div class="choose-genre, form-element">
                     <label for="genre">Sort By:</label>
                     <select id="genre" name="genre" required>
                         <option value="Crime">Title</option>
@@ -32,7 +25,6 @@
                         <option value="new">New</option>
                     </select>
                     <input type="text" placeholder="other genre" name="genre_text">
-                </div>
                 <input type="submit" value="Add Book">
             </form>
         </div>
