@@ -1,10 +1,10 @@
-from flask import Flask, g, request
+from flask import Flask, g, request, render_template
 import sqlite3
 import json
 
 app = Flask(__name__)
 
-DATABASE = 'C:\\Work\\library\\library.db'
+DATABASE = 'C:\\Work\\Training\\Databases\\Library\\library.db'
 
 def dict_factory(cursor, row):
     d = {}
@@ -58,6 +58,18 @@ def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
+
+@app.route('/')
+def serve_index():
+    db = get_db()
+
+    result = db.execute("""SELECT title, author, year, genre.name, available , book_id
+                        FROM books 
+                        JOIN genre
+                        ON genre.id = books.genre_id
+                        WHERE available = 1;""").fetchall()
+
+    return render_template('index.html', books=result)
 
 @app.route('/addbook', methods=['POST'])
 def add_book():
@@ -134,53 +146,60 @@ def get_books_all():
     return json.dumps(result)
 
 #/getbooks/search/<queryGoesHere>
-@app.route('/getbooks/search/<query>')
-def get_books_query(query):
+@app.route('/getbooks/search', methods=['POST'])
+def get_books_query():
+    order_by = request.form['filter_by']
+    query = request.form['query']
     db = get_db()
+    db.set_trace_callback(print)
 
-    result0 = db.execute("""SELECT title, author, year, genre.name, available, book_id
-                            FROM books 
-                            JOIN genre
-                            ON genre.id = books.genre_id
-                            WHERE title 
-                            LIKE '%' || ? || '%';""", (query,)).fetchall()
+    result = []
 
-    result1 = db.execute("""SELECT title, author, year, genre.name, available, book_id
-                            FROM books 
-                            JOIN genre
-                            ON genre.id = books.genre_id
-                            WHERE author
-                            LIKE '%' || ? || '%';""", (query,)).fetchall()
+    if order_by == 'title':
+        result = db.execute("""SELECT title, author, year, genre.name, available, book_id
+                                FROM books 
+                                JOIN genre
+                                ON genre.id = books.genre_id
+                                WHERE title LIKE '%' || ? || '%'
+                                OR author LIKE '%' || ? || '%'
+                                OR year LIKE '%' || ? || '%'
+                                OR genre.name LIKE '%' || ? || '%'
+                                ORDER BY title ASC;""", (query, query, query, query)).fetchall()
 
-    result2 = db.execute("""SELECT title, author, year, genre.name, available, book_id
-                            FROM books 
-                            JOIN genre
-                            ON genre.id = books.genre_id
-                            WHERE year
-                            LIKE '%' || ? || '%';""", (query,)).fetchall()
+    elif order_by == 'author':
+        result = db.execute("""SELECT title, author, year, genre.name, available, book_id
+                                FROM books 
+                                JOIN genre
+                                ON genre.id = books.genre_id
+                                WHERE title LIKE '%' || ? || '%'
+                                OR author LIKE '%' || ? || '%'
+                                OR year LIKE '%' || ? || '%'
+                                OR genre.name LIKE '%' || ? || '%'
+                                ORDER BY author ASC;""", (query, query, query, query)).fetchall()
 
-    result3 = db.execute("""SELECT title, author, year, genre.name, available, book_id
-                            FROM books 
-                            JOIN genre
-                            ON genre.id = books.genre_id
-                            WHERE genre.name
-                            LIKE '%' || ? || '%';""", (query,)).fetchall()
+    elif order_by == 'year':
+        result = db.execute("""SELECT title, author, year, genre.name, available, book_id
+                                FROM books 
+                                JOIN genre
+                                ON genre.id = books.genre_id
+                                WHERE title LIKE '%' || ? || '%'
+                                OR author LIKE '%' || ? || '%'
+                                OR year LIKE '%' || ? || '%'
+                                OR genre.name LIKE '%' || ? || '%'
+                                ORDER BY year ASC;""", (query, query, query, query)).fetchall()
 
-    result = result0 + result1 + result2 + result3
-    resultNew = []
+    elif order_by == 'genre.name':
+        result = db.execute("""SELECT title, author, year, genre.name, available, book_id
+                                FROM books 
+                                JOIN genre
+                                ON genre.id = books.genre_id
+                                WHERE title LIKE '%' || ? || '%'
+                                OR author LIKE '%' || ? || '%'
+                                OR year LIKE '%' || ? || '%'
+                                OR genre.name LIKE '%' || ? || '%'
+                                ORDER BY genre.name ASC;""", (query, query, query, query)).fetchall()
 
-    for book in result:
-        id = book['book_id']
-        resultNew.append(book)
-        result.remove(book)
-        for book2 in result:
-            if book2["book_id"] != id:
-                resultNew.append(book2)
-                result.remove(book2)
-            else:
-                result.remove(book2)
-
-    return json.dumps(resultNew)
+    return render_template('index.html', books=result)
 
 
 if __name__ == '__main__':

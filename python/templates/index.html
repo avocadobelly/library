@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Library Home Page</title>
-        <link rel="stylesheet" href="stylesheet.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css')}}">
     </head>
     <body>
         <h1 id="logo">Library</h1>
@@ -14,45 +14,38 @@
             </p>
         </nav>
         <div class="form-div">
-            <form class="filter-by">
-                <div class="checked-out-control">
-                    <label for="show-checked-out">Show Checked Out Books</label>
-                    <input type="checkbox" id="show-checked-out">
-                </div>
+            <form class="checked-out-control">
+                <label for="show-checked-out">Show Checked Out Books</label>
+                <input type="checkbox" id="show-checked-out">
+            </form>
+            <form class="filter-by" action="/getbooks/search" method="post">
                 <div class="sort-by-control">
                     <label for="sort-by-drop-down">Sort By:</label>
-                    <select id="sort-by-drop-down">
+                    <select id="sort-by-drop-down" name="filter_by">
                         <option value="title">Title</option>
                         <option value="author">Author</option>
-                        <option value="genre">Genre</option>
+                        <option value="genre.name">Genre</option>
                         <option value="year">Year</option>
                     </select>
                 </div>
-                <div class="submit-control">
-                     <input type="text" placeholder="search">
+                <div class="search-control">
+                     <input type="text" placeholder="search" name="query">
                      <input type="submit">
                 </div>
             </form>
         </div>
         <div class="book-holder">
+            {% for book in books %}
                 <div class="book">
-                    <p>Book</p>
+                    <p>{{book.title}}</p>
+                    <p>{{book.author}}</p>
+                    <p>{{book.year}}</p>
+                    <p>{{book.name}}</p>
                     <form>
                         <input type="checkbox">
                     </form>
                 </div>
-                <div class="book">
-                    <p>Book</p>
-                    <form>
-                        <input type="checkbox">
-                    </form>
-                </div>
-                <div class="book">
-                    <p>Book</p>
-                    <form>
-                        <input type="checkbox">
-                    </form>
-                </div>
+            {% endfor %}
             </div>
     </body>
 </html>
