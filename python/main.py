@@ -4,7 +4,7 @@ import json
 
 app = Flask(__name__)
 
-DATABASE = 'C:\\Work\\library\\library.db'
+DATABASE = 'C:\\Work\\Training\\Databases\\Library\\library.db'
 
 def dict_factory(cursor, row):
     d = {}
@@ -50,7 +50,7 @@ def get_genre_id(genre_id, genre_new_text, db):
             return result["id"]
 
     else:
-        return genre_id;
+        return genre_id
 
 
 @app.teardown_appcontext

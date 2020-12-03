@@ -57,11 +57,11 @@
                         {% if book.available == 1 %}
                         <input style="display: none;" class="hidden" name="book_id" type="text" value={{book.book_id}} hidden>
                         <input style="display: none;" class="hidden" name="availability" type="text" value="0" hidden>
-                        <input type="submit" value="Check Out">
+                        <input type="submit" value="Check Out" class="check-btn">
                         {% else %}
                         <input style="display: none;" class="hidden" name="book_id" type="text" value={{book.book_id}} hidden>
                         <input style="display: none;" class="hidden" name="availability" type="text" value="1" hidden>
-                        <input type="submit" value="Check In">
+                        <input type="submit" value="Check In" class="check-btn">
                         {% endif %}
                     </form>
                 </div>

@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    margin: 0 auto;
 }
 
 h1 {
@@ -29,21 +30,23 @@ h1 {
     display: inline;
 }
 
-.book * {
-    display: inline;
+.check-btn {
+    width: 100px;
 }
 
 .book {
     border: 3px solid black;
     box-shadow: 5px 5px gray;
     margin: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 3fr 1fr;
 }
 
-.book-holder {
-    border: 2px solid black;
+.book form {
+    grid-column: 6;
 }
 
-.form-holder {
+.new-books {
     border: 2px solid black;
     padding: 15px;
     height: 80vh;
@@ -65,13 +68,13 @@ h1 {
 input[type="submit"] {
     box-shadow: 3px 3px;
     border-radius: 3px;
+}
 
-input[type="text"] {
+.search-control input[type="text"] {
     border-radius: 10px;
 }
 
 .book form input .hidden {
-display: none;
-visibility: hidden;
-
+    display: none;
+    visibility: hidden;
 }
