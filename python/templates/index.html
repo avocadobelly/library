@@ -9,15 +9,19 @@
         <h1 id="logo">Library</h1>
         <nav>
             <p>
-                <a href="https://www.google.com">Add New Book</a> |
-                <a href="https://www.google.com">Check Out Books</a>
+                <a href="/bookadd">Add New Book</a>
             </p>
         </nav>
         <div class="form-div">
-            <form class="checked-out-control">
-                <label for="show-checked-out">Show Checked Out Books</label>
-                <input type="checkbox" id="show-checked-out">
+            {% if showChecked %}
+            <form class="checked-out-control" action="/" method="post">
+                <input type="submit" value="Hide Checked Out Books">
             </form>
+            {% else %}
+            <form class="checked-out-control" action="/getbooks/all" method="post">
+                <input type="submit" value="Show Checked Out Books">
+            </form>
+            {% endif %}
             <form class="filter-by" action="/getbooks/search" method="post">
                 <div class="sort-by-control">
                     <label for="sort-by-drop-down">Sort By:</label>
@@ -34,18 +38,33 @@
                 </div>
             </form>
         </div>
-        <div class="book-holder">
+        {% if message %}
+        <p>Book added!</p>
+        {% endif %}
             {% for book in books %}
                 <div class="book">
                     <p>{{book.title}}</p>
                     <p>{{book.author}}</p>
                     <p>{{book.year}}</p>
                     <p>{{book.name}}</p>
-                    <form>
-                        <input type="checkbox">
+                    <form action="/setavail", method="post">
+                        {% if showall %}
+                        <input style="display: none;" value="showall" name="view">
+                        {% else %}
+                        <input style="display: none;" value="showavail" name="view">
+                        {% endif %}
+
+                        {% if book.available == 1 %}
+                        <input style="display: none;" class="hidden" name="book_id" type="text" value={{book.book_id}} hidden>
+                        <input style="display: none;" class="hidden" name="availability" type="text" value="0" hidden>
+                        <input type="submit" value="Check Out">
+                        {% else %}
+                        <input style="display: none;" class="hidden" name="book_id" type="text" value={{book.book_id}} hidden>
+                        <input style="display: none;" class="hidden" name="availability" type="text" value="1" hidden>
+                        <input type="submit" value="Check In">
+                        {% endif %}
                     </form>
                 </div>
             {% endfor %}
-            </div>
     </body>
 </html>

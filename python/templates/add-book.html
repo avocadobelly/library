@@ -9,20 +9,18 @@
         <h1 id="logo">Library</h1>
         <a href="https://www.google.com">Home</a>
         <div class="form-holder">
-            <form method="post">
+            <form method="post" action="/addbook">
                     <label>Title:</label>
                     <input class="title" type="text" name="title" required>
                     <label>Author:</label>
                     <input type="text" name="author" required>
                     <label>Year:</label>
-                    <input type="date" name="year" required>
+                    <input type="text" name="year" required>
                     <label for="genre">Sort By:</label>
                     <select id="genre" name="genre" required>
-                        <option value="Crime">Title</option>
-                        <option value="Young Adult">Author</option>
-                        <option value="Classic">Genre</option>
-                        <option value="Comedy">Year</option>
-                        <option value="new">New</option>
+                        {% for genre in genres %}
+                        <option value={{genre.id}}>{{genre.name}}</option>
+                        {% endfor %}
                     </select>
                     <input type="text" placeholder="other genre" name="genre_text">
                 <input type="submit" value="Add Book">

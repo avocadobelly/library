@@ -25,13 +25,53 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="05c02440-27b1-4d8d-9713-2dd8451e58ec">
-        <schema name="main" object-types="index, table, dataset trigger, constraint, view, column" />
+        <schema name="main" object-types="table, view, column" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="05c02440-27b1-4d8d-9713-2dd8451e58ec">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT * from BOOKS]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[CREATE table books ( 
+book_id integer primary key autoincrement not null, 
+title varchar (255), 
+author varchar (255), 
+year integer,
+available integer,
+genre_id integer,
+foreign key(genre_id) references genre(id)
+); 
+DROP table genre;
+DROP table books;
+INSERT into genre (name) values ('Fiction');
+INSERT into genre (name) values ('Biography');
+INSERT into genre (name) values ('History');
+INSERT into genre (name) values ('Non-Fiction');
+INSERT into genre (name) values ('Crime');
+
+INSERT into books (title, author, year, genre_id, available) values ('Harry Potter 1', 'J.K Rowling', 2001, 1, 0);
+INSERT into books (title, author, year, genre_id, available) values ('Harry Potter 2', 'J.K Rowling', 2003, 1, 1);
+INSERT into books (title, author, year, genre_id, available) values ('book3', 'mr.Smith', 2007, 5, 1);
+INSERT into books (title, author, year, genre_id, available) values ('book4', 'testA', 2013, 3, 1);
+INSERT into books (title, author, year, genre_id, available) values ('book5', 'Johnson', 2003, 2, 1);
+SELECT title, author, year, genre.name, available FROM books JOIN genre ON genre.id = books.genre_id;
+SELECT title, author, year, genre.name, available FROM books JOIN genre ON genre.id = books.genre_id WHERE available = 1;
+SELECT title, author, year, genre.name, available FROM Books JOIN genre ON genre.id = books.genre_id ORDER BY year ASC;
+SELECT title FROM books JOIN genre ON genre.id = books.genre_id WHERE author LIKE '%J.K Rowlin%';
+SELECT title, author, year, genre.name, available, book_id
+                            FROM books 
+                            JOIN genre
+                            ON genre.id = books.genre_id
+                            ORDER BY year ASC;
+                            
+SELECT title, author, year, genre.name, available, book_id
+                                FROM books 
+                                JOIN genre
+                                ON genre.id = books.genre_id
+                                WHERE title LIKE '%' || '' || '%'
+                                OR author LIKE '%' || '' || '%'
+                                OR year LIKE '%' || '' || '%'
+                                OR genre.name LIKE '%' || '' || '%'
+                                ORDER BY year ASC;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

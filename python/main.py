@@ -4,7 +4,7 @@ import json
 
 app = Flask(__name__)
 
-DATABASE = 'C:\\Work\\Training\\Databases\\Library\\library.db'
+DATABASE = 'C:\\Work\\library\\library.db'
 
 def dict_factory(cursor, row):
     d = {}
@@ -59,7 +59,7 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def serve_index():
     db = get_db()
 
@@ -70,6 +70,14 @@ def serve_index():
                         WHERE available = 1;""").fetchall()
 
     return render_template('index.html', books=result)
+
+@app.route('/bookadd')
+def book_add():
+    db = get_db()
+
+    result = db.execute("""SELECT * FROM genre""")
+
+    return render_template('add-book.html', genres=result)
 
 @app.route('/addbook', methods=['POST'])
 def add_book():
@@ -93,7 +101,7 @@ def add_book():
                         JOIN genre
                         ON genre.id = books.genre_id;""").fetchall()
 
-    return json.dumps(result)
+    return render_template('index.html', books=result, message="Book added.")
 
 @app.route('/getgenres')
 def get_genres():
@@ -114,12 +122,21 @@ def set_avalibility():
 
     db.commit()
 
-    result = db.execute("""SELECT title, author, year, genre.name, available , book_id
-                            FROM books 
-                            JOIN genre
-                            ON genre.id = books.genre_id;""").fetchall()
+    if '/getbooks/all' in request.referrer or request.form['view'] == 'showall':
 
-    return json.dumps(result)
+        result = db.execute("""SELECT title, author, year, genre.name, available , book_id
+                                FROM books 
+                                JOIN genre
+                                ON genre.id = books.genre_id;""").fetchall()
+        return render_template('index.html', books=result, showall=True)
+
+    else:
+        result = db.execute("""SELECT title, author, year, genre.name, available , book_id
+                                FROM books 
+                                JOIN genre
+                                ON genre.id = books.genre_id
+                                WHERE available = 1;""").fetchall()
+        return render_template('index.html', books=result)
 
 @app.route('/getbooks/avalible')
 def get_books():
@@ -134,7 +151,7 @@ def get_books():
     return json.dumps(result)
 
 
-@app.route('/getbooks/all')
+@app.route('/getbooks/all', methods=['GET','POST'])
 def get_books_all():
     db = get_db()
 
@@ -143,7 +160,7 @@ def get_books_all():
                         JOIN genre
                         ON genre.id = books.genre_id;""").fetchall()
 
-    return json.dumps(result)
+    return render_template('index.html', books=result, showChecked=True)
 
 #/getbooks/search/<queryGoesHere>
 @app.route('/getbooks/search', methods=['POST'])
@@ -200,7 +217,6 @@ def get_books_query():
                                 ORDER BY genre.name ASC;""", (query, query, query, query)).fetchall()
 
     return render_template('index.html', books=result)
-
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8080, debug=True)
