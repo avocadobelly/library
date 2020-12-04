@@ -5,7 +5,10 @@
 
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
+}
+
+header {
+    padding: 30px 15px;
 }
 
 #logo {
@@ -22,12 +25,31 @@ h1 {
     padding: 5px;
 }
 
+.nav-link {
+    margin: 5px 15px;
+    display: block;
+}
+
 .form-div {
-    margin: 10px;
+    grid-template-columns: 1fr 4fr;
+    display: grid;
+    column-gap: 200px;
+}
+
+.checked-out-control {
+    grid-column: 1;
+}
+
+.filter-by {
+    grid-column: 2;
 }
 
 .filter-by * {
     display: inline;
+}
+
+.filter-by div {
+    margin: 0px 25px;
 }
 
 .check-btn {
@@ -49,20 +71,45 @@ h1 {
 .new-books {
     border: 2px solid black;
     padding: 15px;
-    height: 80vh;
 }
 
-.form-holder form {
+.new-books form {
     display: grid;
-    grid-template-columns: 1fr 1fr 3fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 50px;
+    column-gap: 10px;
 }
 
-.form-holder label {
-    grid-column: 1 / 2;
+.new-books label {
+    grid-column: 1;
 }
 
-.form-holder input {
-    grid-column: 2 / 3;
+.new-books input {
+    place-self: center stretch;
+}
+
+.add-title {
+    grid-column: 2;
+}
+
+.add-author {
+    grid-column: 2;
+}
+
+.add-year {
+    grid-column: 2;
+}
+
+.add-genre {
+    grid-column: 2;
+}
+
+.add-new-genre {
+    grid-column: 3;
+}
+
+.add-book-btn {
+    grid-column: 5;
 }
 
 input[type="submit"] {
