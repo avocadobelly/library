@@ -6,10 +6,12 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css')}}">
     </head>
     <body>
+    <iframe id="logo" src="https://giphy.com/embed/xYlMLolWl2thK" width="128" height="96" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></p>
         <h1 id="logo">Library</h1>
+
         <nav>
             <p>
-                <a href="/bookadd">Add New Book</a>
+                <a class="nav-link" href="/bookadd">Add New Book</a>
             </p>
         </nav>
         <div class="form-div">
@@ -41,6 +43,7 @@
         {% if message %}
         <p>Book added!</p>
         {% endif %}
+        <div class="books">
             {% for book in books %}
                 <div class="book">
                     <p>{{book.title}}</p>
@@ -66,5 +69,6 @@
                     </form>
                 </div>
             {% endfor %}
+        </div>
     </body>
 </html>

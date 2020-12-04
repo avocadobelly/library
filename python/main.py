@@ -4,7 +4,7 @@ import json
 
 app = Flask(__name__)
 
-DATABASE = 'C:\\Work\\Training\\Databases\\Library\\library.db'
+DATABASE = 'C:\\Work\\library\\library.db'
 
 def dict_factory(cursor, row):
     d = {}
