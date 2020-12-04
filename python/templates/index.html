@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Library Home Page</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css')}}">
+        <script src="{{ url_for('static', filename='javascript/scripts.js')}}"></script>
     </head>
     <body>
     <iframe id="logo" src="https://giphy.com/embed/xYlMLolWl2thK" width="128" height="96" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></p>
@@ -43,32 +44,8 @@
         {% if message %}
         <p>Book added!</p>
         {% endif %}
-        <div class="books">
-            {% for book in books %}
-                <div class="book">
-                    <p>{{book.title}}</p>
-                    <p>{{book.author}}</p>
-                    <p>{{book.year}}</p>
-                    <p>{{book.name}}</p>
-                    <form action="/setavail", method="post">
-                        {% if showall %}
-                        <input style="display: none;" value="showall" name="view">
-                        {% else %}
-                        <input style="display: none;" value="showavail" name="view">
-                        {% endif %}
+        <div class="books" id="book-holder">
 
-                        {% if book.available == 1 %}
-                        <input style="display: none;" class="hidden" name="book_id" type="text" value={{book.book_id}} hidden>
-                        <input style="display: none;" class="hidden" name="availability" type="text" value="0" hidden>
-                        <input type="submit" value="Check Out" class="check-btn">
-                        {% else %}
-                        <input style="display: none;" class="hidden" name="book_id" type="text" value={{book.book_id}} hidden>
-                        <input style="display: none;" class="hidden" name="availability" type="text" value="1" hidden>
-                        <input type="submit" value="Check In" class="check-btn">
-                        {% endif %}
-                    </form>
-                </div>
-            {% endfor %}
         </div>
     </body>
 </html>

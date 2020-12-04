@@ -29,10 +29,7 @@ header {
     border: 5px solid black;
     margin: 10px;
     box-shadow: 10px 10px maroon;
-}
-
-#logo h1 {
-    padding: 5px;
+     padding: 5px;
 }
 
 .nav-link {
