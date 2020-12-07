@@ -128,18 +128,6 @@ def set_avalibility():
                                 ON genre.id = books.genre_id;""").fetchall()
     return render_template('index.html', books=result)
 
-@app.route('/getbooks/available')
-def get_books():
-    db = get_db()
-
-    result = db.execute("""SELECT title, author, year, genre.name, available , book_id
-                        FROM books 
-                        JOIN genre
-                        ON genre.id = books.genre_id
-                        WHERE available = 1;""").fetchall()
-
-    return json.dumps(result)
-
 
 @app.route('/getbooks/all', methods=['GET','POST'])
 def get_books_all():
@@ -150,7 +138,7 @@ def get_books_all():
                         JOIN genre
                         ON genre.id = books.genre_id;""").fetchall()
 
-    return render_template('index.html', books=result, showChecked=True)
+    return json.dumps(result)
 
 #/getbooks/search/<queryGoesHere>
 @app.route('/getbooks/search', methods=['POST'])

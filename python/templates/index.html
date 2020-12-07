@@ -16,15 +16,7 @@
             </p>
         </nav>
         <div class="form-div">
-            {% if showChecked %}
-            <form class="checked-out-control" action="/" method="post">
-                <input type="submit" value="Hide Checked Out Books">
-            </form>
-            {% else %}
-            <form class="checked-out-control" action="/getbooks/all" method="post">
-                <input type="submit" value="Show Checked Out Books">
-            </form>
-            {% endif %}
+            <button class="book-display-control">Show Checked Out Books</button>
             <form class="filter-by" action="/getbooks/search" method="post">
                 <div class="sort-by-control">
                     <label for="sort-by-drop-down">Sort By:</label>
@@ -44,8 +36,6 @@
         {% if message %}
         <p>Book added!</p>
         {% endif %}
-        <div class="books" id="book-holder">
-
-        </div>
+        <div class="books" id="book-holder"></div>
     </body>
 </html>
