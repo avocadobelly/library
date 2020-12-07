@@ -16,7 +16,7 @@
             </p>
         </nav>
         <div class="form-div">
-            <button class="book-display-control">Show Checked Out Books</button>
+            <button class="book-display-control" onClick="filterBooksByAvailability(event)">Show Checked Out Books</button>
             <form class="filter-by" action="/getbooks/search" method="post">
                 <div class="sort-by-control">
                     <label for="sort-by-drop-down">Sort By:</label>
