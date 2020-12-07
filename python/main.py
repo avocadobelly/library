@@ -4,7 +4,7 @@ import json
 
 app = Flask(__name__)
 
-DATABASE = 'C:\\Work\\library\\library.db'
+DATABASE = 'C:\\Work\\Training\\Databases\\Library\\library.db'
 
 def dict_factory(cursor, row):
     d = {}
@@ -122,23 +122,13 @@ def set_avalibility():
 
     db.commit()
 
-    if '/getbooks/all' in request.referrer or request.form['view'] == 'showall':
-
-        result = db.execute("""SELECT title, author, year, genre.name, available , book_id
+    result = db.execute("""SELECT title, author, year, genre.name, available , book_id
                                 FROM books 
                                 JOIN genre
                                 ON genre.id = books.genre_id;""").fetchall()
-        return render_template('index.html', books=result, showall=True)
+    return render_template('index.html', books=result)
 
-    else:
-        result = db.execute("""SELECT title, author, year, genre.name, available , book_id
-                                FROM books 
-                                JOIN genre
-                                ON genre.id = books.genre_id
-                                WHERE available = 1;""").fetchall()
-        return render_template('index.html', books=result)
-
-@app.route('/getbooks/avalible')
+@app.route('/getbooks/available')
 def get_books():
     db = get_db()
 
